@@ -140,6 +140,7 @@
     <Compile Include="Internals\ToleranceMode.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldThrowExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldThrowTaskExtensions.cs" />
+    <Compile Include="ShouldBeStringOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

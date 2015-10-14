@@ -40,6 +40,24 @@ namespace Shouldly
             throw new ShouldAssertException(message.ToString());
         }
 
+        internal static void AssertAwesomelyWithOptions<T>(
+            this T actual, Func<T, bool> specifiedConstraint, 
+            object originalActual, object originalExpected, 
+            ShouldBeStringOptions options, Func<string> customMessage = null)
+        {
+            try
+            {
+                if (specifiedConstraint(actual)) return;
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ShouldAssertException(ex.Message, ex);
+            }
+
+            var message = new ExpectedActualWithOptionsShouldlyMessage(originalExpected, originalActual, options, customMessage);
+            throw new ShouldAssertException(message.ToString());
+        }
+
         internal static void AssertAwesomelyIgnoringOrder<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected,  Func<string> customMessage = null)
         {
             if (customMessage == null)

@@ -236,6 +236,17 @@ namespace Shouldly
             return StringComparer.InvariantCulture.Equals(actual, expected);
         }
 
+        //TODO: implement line ending ignorant comparisons
+        public static bool StringEqualWithOptions(string actual, string expected, ShouldBeStringOptions options)
+        {
+            if (options.HasFlag(ShouldBeStringOptions.IgnoreCase))
+            {
+                return StringComparer.InvariantCultureIgnoreCase.Equals(actual, expected);
+            }
+
+            return StringComparer.InvariantCulture.Equals(actual, expected);
+        }
+
         public static bool EnumerableStringEqualWithCaseSensitivity(IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
         {
             var expectedEnum = expected.GetEnumerator();

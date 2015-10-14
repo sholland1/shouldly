@@ -43,6 +43,20 @@ namespace Shouldly
         }
     }
 
+    //TODO: assign ShouldBeStringOptions Property instead of CaseSensitivity
+    internal class ExpectedActualWithOptionsShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedActualWithOptionsShouldlyMessage(object expected, object actual, ShouldBeStringOptions? options, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
+            {
+                HasRelevantActual = true,
+                CaseSensitivity = options.ToCase()
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
     internal class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
     {
         public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance, [InstantHandle] Func<string> customMessage)

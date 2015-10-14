@@ -10,7 +10,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
              .ShouldBe(
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v", 
-             Case.Sensitive);
+             ShouldBeStringOptions.None);
         }
 
         protected override void ShouldThrowAWobbly()
@@ -18,7 +18,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,ss,1t,1u,1v"
              .ShouldBe(
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,Ss,1t,1u,1v", 
-             Case.Sensitive);
+             ShouldBeStringOptions.None);
         }
 
         protected override string ChuckedAWobblyErrorMessage
