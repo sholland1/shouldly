@@ -28,6 +28,7 @@ namespace Shouldly.Tests.TestHelpers
         public string CustomMessage { get; set; }
 
         public Case? CaseSensitivity { get; set; }
+        public ShouldBeStringOptions Options { get; set; }
 
         internal TestShouldlyAssertionContext(object expected, object actual = null)
         {

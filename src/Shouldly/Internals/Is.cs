@@ -236,9 +236,13 @@ namespace Shouldly
             return StringComparer.InvariantCulture.Equals(actual, expected);
         }
 
-        //TODO: implement line ending ignorant comparisons
         public static bool StringEqualWithOptions(string actual, string expected, ShouldBeStringOptions options)
         {
+            if (options.HasFlag(ShouldBeStringOptions.IgnoreLineEndings))
+            {
+                actual = actual.NormalizeLineEndings();
+                expected = expected.NormalizeLineEndings();
+            }
             if (options.HasFlag(ShouldBeStringOptions.IgnoreCase))
             {
                 return StringComparer.InvariantCultureIgnoreCase.Equals(actual, expected);

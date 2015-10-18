@@ -9,15 +9,6 @@ namespace Shouldly
     public static partial class ShouldBeStringTestExtensions
     {
         /// <summary>
-        /// Perform a case sensitive string comparison
-        /// </summary>
-        [Obsolete("Use the ShouldBeStringOptions instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected)
-        {
-            ShouldBe(actual, expected, () => null, ShouldBeStringOptions.None);
-        }
-
-        /// <summary>
         /// Perform a string comparison, specifying the desired case sensitivity
         /// </summary>
         [Obsolete("Use the ShouldBeStringOptions instead of the Case enum")]
@@ -38,6 +29,9 @@ namespace Shouldly
             ShouldBe(actual, expected, customMessage, caseSensitivity.ToOptions());
         }
 
+        /// <summary>
+        /// Perform a string comparison with sensitivity options
+        /// </summary>
         public static void ShouldBe(
             this string actual,
             string expected,

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shouldly.Internals;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -67,6 +68,11 @@ namespace Shouldly
                 return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
 #endif
+
+            if (value is LineEndingInsensitiveString)
+            {
+                return value.ToString().ToStringAwesomely();
+            }
 
             return value == null ? "null" : value.ToString();
         }
@@ -154,6 +160,12 @@ namespace Shouldly
                 }
             }
             return c.ToString(CultureInfo.InvariantCulture);
+        }
+
+        internal static string NormalizeLineEndings(this string s)
+        {
+            if (s == null) return null;
+            return s.Replace("\r\n", "\n").Replace('\r', '\n');
         }
     }
 }

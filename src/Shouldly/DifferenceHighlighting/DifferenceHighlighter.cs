@@ -6,6 +6,7 @@ namespace Shouldly.DifferenceHighlighting
     internal static class DifferenceHighlighter
     {
         private static readonly List<IDifferenceHighlighter> _differenceHighlighters = new List<IDifferenceHighlighter> {
+            new LineEndingInsensitiveStringDifferenceHighlighter(),
             new EnumerableDifferenceHighlighter(),
             new StringDifferenceHighlighter()
         };

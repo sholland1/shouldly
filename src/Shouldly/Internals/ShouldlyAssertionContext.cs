@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Shouldly.Internals;
 
 namespace Shouldly
 {
@@ -18,10 +19,56 @@ namespace Shouldly
         public MethodBase UnderlyingShouldMethod { get; set; }
 
         public object Key { get; set; }
-        public object Expected { get; set; }
-        public object Actual { get; set; }
+
+        private object _expected;
+        public object Expected
+        {
+            get { return GetLineEndingInsensitiveStringIfNecessary(_expected); }
+            set { _expected = value; }
+        }
+        private object _actual;
+        public object Actual
+        {
+            get { return GetLineEndingInsensitiveStringIfNecessary(_actual); }
+            set { _actual = value; }
+        }
+        private object GetLineEndingInsensitiveStringIfNecessary(object item)
+        {
+            if (item is string && Options.HasFlag(ShouldBeStringOptions.IgnoreLineEndings))
+            {
+                return new LineEndingInsensitiveString(item.As<string>());
+            }
+            return item;
+        }
+
         public object Tolerance { get; set; }
-        public Case? CaseSensitivity { get; set; }
+        private Case? _caseSensitivity;
+        public Case? CaseSensitivity
+        {
+            get { return _caseSensitivity; }
+            set
+            {
+                if (value.HasValue && value.Value == Case.Insensitive)
+                {
+                    _options |= ShouldBeStringOptions.IgnoreCase;
+                }
+                else
+                {
+                    _options &= ~ShouldBeStringOptions.IgnoreCase;
+                }
+                _caseSensitivity = value;
+            }
+        }
+        private ShouldBeStringOptions _options = ShouldBeStringOptions.None;
+        public ShouldBeStringOptions Options
+        {
+            get { return _options; }
+            set
+            {
+                _caseSensitivity = value.ToCase();
+                _options = value;
+            }
+        }
         public TimeSpan? Timeout { get; set; }
 
         public bool IgnoreOrder { get; set; }

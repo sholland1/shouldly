@@ -42,6 +42,27 @@ namespace Shouldly.Tests.InternalTests
         }
 
         [Test]
+        public void NormalizeLineEndings_ShouldReturnNullWhenGivenNull()
+        {
+            string s = null;
+            s.NormalizeLineEndings().ShouldBe(null);
+        }
+
+        [Test]
+        public void NormalizeLineEndings_ShouldReturnSameStringIfNoLineEndings()
+        {
+            "oneline".NormalizeLineEndings().ShouldBe("oneline");
+        }
+
+        [Test]
+        public void NormalizeLineEndings_ShouldReturnStringWithNormalizedLineEndings()
+        {
+            "line1\nline2".NormalizeLineEndings().ShouldBe("line1\nline2");
+            "line1\r\nline2".NormalizeLineEndings().ShouldBe("line1\nline2");
+            "line1\rline2".NormalizeLineEndings().ShouldBe("line1\nline2");
+        }
+
+        [Test]
         [TestCase("() => result")]
         [TestCase("( ) => result")]
         [TestCase("( ) =>result")]
