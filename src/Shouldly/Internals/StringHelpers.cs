@@ -165,7 +165,7 @@ namespace Shouldly
         internal static string NormalizeLineEndings(this string s)
         {
             if (s == null) return null;
-            return s.Replace("\r\n", "\n").Replace('\r', '\n');
+            return Regex.Replace(s, @"\r\n?", "\n");
         }
     }
 }
